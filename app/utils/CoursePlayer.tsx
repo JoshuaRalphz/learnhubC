@@ -14,7 +14,7 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
 
   useEffect(() => {
     axios
-      .post("https://lmshub-edf2a6939a3f.herokuapp.com/api/v1/getVdoCipherOTP", {
+      .post("https://learnhubs-19faa3164a81.herokuapp.com/api/v1/getVdoCipherOTP", {
         videoId: videoUrl,
       })
       .then((res) => {
