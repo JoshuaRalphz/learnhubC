@@ -35,7 +35,7 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
       <div className="hidden 800px:flex">
         {navItemsData &&
           navItemsData.map((i, index) => (
-            <Link href={`${i.url}`} key={index} passHref>
+            <Link href={`${i.url}`} passHref key={index}>
               <span
                 className={`${
                   activeItem === index
@@ -54,12 +54,12 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
             <Link href={"/"} passHref>
               <span
                 className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
-              >ELearning</span>
+              >LearnHub</span>
             </Link>
           </div>
             {navItemsData &&
               navItemsData.map((i, index) => (
-                <Link href="/" passHref key={index}>
+                <Link href={`${i.url}`} passHref key={index}>
                   <span
                     className={`${
                       activeItem === index

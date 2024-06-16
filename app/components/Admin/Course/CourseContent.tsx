@@ -13,12 +13,18 @@ type Props = {
   handleSubmit: any;
 };
 
+const extractYouTubeID = (url: string) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : url;
+};
+
 const CourseContent: FC<Props> = ({
   courseContentData,
   setCourseContentData,
   active,
   setActive,
-  handleSubmit: handlleCourseSubmit,
+  handleSubmit: handleCourseSubmit,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(
     Array(courseContentData.length).fill(false)
@@ -31,9 +37,9 @@ const CourseContent: FC<Props> = ({
   };
 
   const handleCollapseToggle = (index: number) => {
-    const updatedCollasped = [...isCollapsed];
-    updatedCollasped[index] = !updatedCollasped[index];
-    setIsCollapsed(updatedCollasped);
+    const updatedCollapsed = [...isCollapsed];
+    updatedCollapsed[index] = !updatedCollapsed[index];
+    setIsCollapsed(updatedCollapsed);
   };
 
   const handleRemoveLink = (index: number, linkIndex: number) => {
@@ -121,7 +127,7 @@ const CourseContent: FC<Props> = ({
       toast.error("section can't be empty!");
     } else {
       setActive(active + 1);
-      handlleCourseSubmit();
+      handleCourseSubmit();
     }
   };
 
@@ -179,7 +185,7 @@ const CourseContent: FC<Props> = ({
                     <div></div>
                   )}
 
-                  {/* // arrow button for collasped video content */}
+                  {/* // arrow button for collapsed video content */}
                   <div className="flex items-center">
                     <AiOutlineDelete
                       className={`dark:text-white text-[20px] mr-2 text-black ${
@@ -222,15 +228,15 @@ const CourseContent: FC<Props> = ({
                       />
                     </div>
                     <div className="mb-3">
-                      <label className={styles.label}>Video Url</label>
+                      <label className={styles.label}>YouTube Video ID</label>
                       <input
                         type="text"
-                        placeholder="sdder"
+                        placeholder="YouTube Video ID"
                         className={`${styles.input}`}
                         value={item.videoUrl}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].videoUrl = e.target.value;
+                          updatedData[index].videoUrl = extractYouTubeID(e.target.value);
                           setCourseContentData(updatedData);
                         }}
                       />

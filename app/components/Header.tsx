@@ -146,6 +146,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                   id="screen"
                 >
                   <div className="w-[80%] fixed z-[999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
+                      <div className="flex justify-end p-4">
+                        <button onClick={() => setOpenSidebar(false)} className="text-black dark:text-white">
+                          X
+                        </button>
+                      </div>
                     <NavItems activeItem={activeItem} isMobile={true} />
                     {/* User profile/avatar or login icon */}
                     {userData?.user ? (
@@ -191,8 +196,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 )}
               </>
             )}
-
-            {route === "Sign-Up" && (
+              {route === "SignUp" && (
               <>
                 {open && (
                   <CustomModal
@@ -201,11 +205,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                     setRoute={setRoute}
                     activeItem={activeItem}
                     component={SignUp}
+                      refetch={refetch}
                   />
                 )}
               </>
-            )}
-
+              )}
             {route === "Verification" && (
               <>
                 {open && (

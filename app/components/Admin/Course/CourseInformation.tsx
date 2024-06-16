@@ -71,6 +71,12 @@ const CourseInformation: FC<Props> = ({
     }
   };
 
+  function extractYouTubeID(value: string) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = value.match(regExp);
+    return match && match[2].length === 11 ? match[2] : value;
+  }
+
   return (
     <div className="w-[80%] m-auto mt-24">
       <form onSubmit={handleSubmit} className={`${styles.label}`}>
@@ -157,7 +163,7 @@ const CourseInformation: FC<Props> = ({
                 setCourseInfo({ ...courseInfo, tags: e.target.value })
               }
               id="tags"
-              placeholder="MERN,Next 13,Socket io,tailwind css,LMS"
+              placeholder="Enter Course Tags (e.g., MERN, Next.js)"
               className={`
             ${styles.input}`}
             />
@@ -198,7 +204,7 @@ const CourseInformation: FC<Props> = ({
                 setCourseInfo({ ...courseInfo, level: e.target.value })
               }
               id="level"
-              placeholder="Beginner/Intermediate/Expert"
+              placeholder="Enter Course Level (e.g., Beginner, Intermediate, Expert)"
               className={`
             ${styles.input}`}
             />
@@ -210,11 +216,14 @@ const CourseInformation: FC<Props> = ({
               name=""
               required
               value={courseInfo.demoUrl}
-              onChange={(e: any) =>
-                setCourseInfo({ ...courseInfo, demoUrl: e.target.value })
-              }
+              onChange={(e) => {
+                setCourseInfo({
+                  ...courseInfo,
+                  demoUrl: extractYouTubeID(e.target.value),
+                });
+              }}
               id="demoUrl"
-              placeholder="eer74fd"
+              placeholder="YouTube Demo URL"
               className={`
             ${styles.input}`}
             />

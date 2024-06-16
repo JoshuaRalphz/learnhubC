@@ -122,6 +122,7 @@ const CreateCourse = (props: Props) => {
     }
   };
 
+
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%]">
